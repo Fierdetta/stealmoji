@@ -54,7 +54,6 @@ export default function StealButtons({ emojiNode }) {
 				onPress={callback}
 				style={{ marginTop: 16 }}
 			/>
-		)
-		}
+		)}
 	</>
 }
