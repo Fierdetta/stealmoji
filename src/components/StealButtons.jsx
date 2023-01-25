@@ -17,7 +17,6 @@ const CopyMessageLink = getAssetIDByName("ic_copy_message_link");
 const CopyFile = getAssetIDByName('ic_message_copy');
 
 export default function StealButtons({ emojiNode }) {
-	console.log(emojiNode)
 	const buttons = [
 		{
 			text: "Add to Server",
