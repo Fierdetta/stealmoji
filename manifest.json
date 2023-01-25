@@ -7,7 +7,7 @@
             "id": "890228870559698955"
         }
     ],
-    "main": "src/index.js",
+    "main": "src/index.jsx",
     "vendetta": {
         "icon": "ic_emoji_24px"
     }
