@@ -18,10 +18,10 @@ const CopyFile = getAssetIDByName('ic_message_copy');
 
 export default function StealButtons({ emojiNode }) {
 	const buttons = [
-		{
+		/*{
 			text: "Add to Server",
 			callback: () => { }
-		},
+		},*/
 		{
 			text: "Copy URL to clipboard",
 			callback: () => {
