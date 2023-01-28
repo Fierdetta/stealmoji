@@ -1,4 +1,4 @@
-import { find, findByProps } from "@vendetta/metro";
+import { find, findByProps, findByDisplayName } from "@vendetta/metro";
 import { Permissions } from "@vendetta/metro/common/constants";
 import { FormDivider } from "@vendetta/ui/components/Forms";
 import AddToServerRow from "../components/AddToServerRow";
@@ -6,7 +6,12 @@ import AddToServerRow from "../components/AddToServerRow";
 const LazyActionSheet = findByProps("openLazy", "hideActionSheet");
 
 // Components
-const ActionSheet = find((m) => m.default && m.default.render && m.default.render.name == "ActionSheet").default.render;
+let ActionSheet;
+try {
+	ActionSheet = find((m) => m.default && m.default.render && m.default.render.name == "ActionSheet").default.render;
+} catch {
+	ActionSheet = findByDisplayName("SimpleActionSheet")({ options: [] }).type.render;
+}
 const { BottomSheetScrollView } = findByProps("BottomSheetScrollView");
 
 // Stores
