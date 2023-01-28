@@ -1,4 +1,4 @@
-import { find, findByProps, findByDisplayName } from "@vendetta/metro";
+import { find, findByProps } from "@vendetta/metro";
 import { Permissions } from "@vendetta/metro/common/constants";
 import { FormDivider } from "@vendetta/ui/components/Forms";
 import AddToServerRow from "../components/AddToServerRow";

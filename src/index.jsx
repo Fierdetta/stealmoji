@@ -1,5 +1,5 @@
 import { findByProps } from "@vendetta/metro";
-import { before, after } from "@vendetta/patcher";
+import { after } from "@vendetta/patcher";
 import { FormDivider } from "@vendetta/ui/components/Forms";
 import StealButtons from "./components/StealButtons";
 
