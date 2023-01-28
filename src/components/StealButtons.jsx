@@ -4,6 +4,7 @@ import { setString, setImage } from "@vendetta/metro/common/clipboard";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
 import fetchImageAsDataURL from "../functions/fetchImageAsDataURL";
+import { showAddToServerActionSheet } from "../sheets/AddToServerActionSheet";
 
 const {
 	default: Button,
@@ -18,10 +19,10 @@ const CopyFile = getAssetIDByName('ic_message_copy');
 
 export default function StealButtons({ emojiNode }) {
 	const buttons = [
-		/*{
+		{
 			text: "Add to Server",
-			callback: () => { }
-		},*/
+			callback: () => showAddToServerActionSheet(emojiNode)
+		},
 		{
 			text: "Copy URL to clipboard",
 			callback: () => {
@@ -45,6 +46,7 @@ export default function StealButtons({ emojiNode }) {
 		})
 
 	]
+	
 	return <>
 		{buttons.map(({ text, callback }) =>
 			<Button
