@@ -12,6 +12,8 @@ const {
 	ButtonLooks,
 	ButtonSizes,
 } = findByProps("ButtonColors", "ButtonLooks", "ButtonSizes");
+let ActionSheet = find((m) => m.default && m.default.render && m.default.render.name == "ActionSheet");
+
 const LazyActionSheet = findByProps("openLazy", "hideActionSheet");
 
 const CopyMessageLink = getAssetIDByName("ic_copy_message_link");
@@ -19,10 +21,10 @@ const CopyFile = getAssetIDByName('ic_message_copy');
 
 export default function StealButtons({ emojiNode }) {
 	const buttons = [
-		{
+		...(ActionSheet ? [{
 			text: "Add to Server",
 			callback: () => showAddToServerActionSheet(emojiNode)
-		},
+		}] : []),
 		{
 			text: "Copy URL to clipboard",
 			callback: () => {
@@ -46,7 +48,7 @@ export default function StealButtons({ emojiNode }) {
 		})
 
 	]
-	
+
 	return <>
 		{buttons.map(({ text, callback }) =>
 			<Button

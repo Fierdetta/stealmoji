@@ -9,9 +9,7 @@ const LazyActionSheet = findByProps("openLazy", "hideActionSheet");
 let ActionSheet;
 try {
 	ActionSheet = find((m) => m.default && m.default.render && m.default.render.name == "ActionSheet").default.render;
-} catch {
-	ActionSheet = findByDisplayName("SimpleActionSheet")({ options: [] }).type.render;
-}
+} catch {}
 const { BottomSheetScrollView } = findByProps("BottomSheetScrollView");
 
 // Stores
