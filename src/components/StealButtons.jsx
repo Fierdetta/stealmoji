@@ -1,4 +1,4 @@
-import { findByProps } from "@vendetta/metro";
+import { findByProps, find } from "@vendetta/metro";
 import { Platform } from "@vendetta/metro/common/ReactNative";
 import { setString, setImage } from "@vendetta/metro/common/clipboard";
 import { getAssetIDByName } from "@vendetta/ui/assets";
