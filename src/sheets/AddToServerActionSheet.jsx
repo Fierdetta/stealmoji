@@ -18,7 +18,7 @@ const PermissionsStore = findByProps("can", "_dispatcher");
 
 // function to easily show the sheet
 export function showAddToServerActionSheet(emojiNode) {
-	LazyActionSheet.openLazy(() => Promise.resolve(AddToServerActionSheet), "AddToServerActionSheet", { emojiNode: emojiNode });
+	LazyActionSheet.openLazy(new Promise(r => r({ default: AddToServerActionSheet })), "AddToServerActionSheet", { emojiNode: emojiNode });
 };
 
 // The sheet itself

@@ -3,9 +3,10 @@ import { ReactNative as RN } from "@vendetta/metro/common";
 import { after, before } from "@vendetta/patcher";
 import { FormDivider } from "@vendetta/ui/components/Forms";
 import StealButtons from "./components/StealButtons";
+import openEmojiActionSheet from "./functions/openEmojiActionSheet";
 
-const MessageEmojiActionSheet = findByProps("GuildDetails");
 const ActionSheet = find((m) => m.default?.render?.name == "ActionSheet")?.default;
+const MessageEmojiActionSheet = findByProps("GuildDetails");
 
 let unpatch;
 let unpatchReactions;
@@ -15,7 +16,7 @@ export default {
     unpatch = after("default", MessageEmojiActionSheet, ([{ emojiNode }], res) => {
       // Don't do anything if the emoji doesn't have a image url
       if (!emojiNode.src) return;
-      
+
       // Contains everything about the emoji
       const EmojiInfo = res?.props?.children?.props?.children?.props?.children;
       // Obviously we don't want to patch if this isn't a thing
@@ -27,10 +28,10 @@ export default {
         React.useEffect(() => {
           return unpatchEmojiInfo;
         }, []);
-        
+
         // const emoteDetails = res.props?.children[0]?.props?.children;
         // if (emoteDetails && emoteDetails[0].type.name === "Icon") {
-          //   emoteDetails[0] = (
+        //   emoteDetails[0] = (
         //     <RN.TouchableOpacity onPress={() => console.log(emojiNode)}>
         //       {emoteDetails[0]}
         //     </RN.TouchableOpacity>
@@ -64,20 +65,23 @@ export default {
       unpatchReactions = before("render", ActionSheet, ([props]) => {
         // Checks if the action sheet is for message reactions
         if (!props?.header?.props?.reactions || props.children.type?.name !== "FastList") return;
-        
+
         // Patch the header
         const unpatchReactionsHeader = after("type", props.header, (args, res) => {
           // Unpatch on unmount
           React.useEffect(() => unpatchReactionsHeader, []);
-    
+
           const tabsRow = res.props.children[0];
           const { tabs, onSelect } = tabsRow.props;
-          
+
           // Wrap the tabs in a TouchableOpacity so we can add a long press handler
           tabsRow.props.tabs = tabs.map((tab) => (
             <RN.TouchableOpacity
               onPress={() => onSelect(tab.props.index)}
-              onLongPress={() => console.log("Long pressed")}
+              onLongPress={() => {
+                const { emoji } = tab.props.reaction;
+                openEmojiActionSheet(emoji);
+              }}
             >
               {tab}
             </RN.TouchableOpacity>
@@ -85,11 +89,11 @@ export default {
         });
       });
     }
-    
+
     // // Kept for future reference..?
     // before("default", findByDisplayName("v", false), ([tab]) => {
     //   const { tabs, onSelect } = tab;
-  
+
     //   tab.tabs = tabs.map((tab) => (
     //     <RN.TouchableOpacity
     //       onPress={() => onSelect(tab.props.index)}
