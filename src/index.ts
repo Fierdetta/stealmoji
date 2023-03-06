@@ -1,10 +1,14 @@
-import { logger } from "@vendetta";
+import patchMessageEmojiActionSheet from "./patches/MessageEmojiActionSheet";
+
+let patches = [];
 
 export default {
     onLoad: () => {
-        logger.log("Hello world!");
+        patches.push(patchMessageEmojiActionSheet());
     },
     onUnload: () => {
-        logger.log("Goodbye, world.");
+        for (const unpatch of patches) {
+            unpatch();
+        };
     },
 }
