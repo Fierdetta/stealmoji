@@ -5,7 +5,7 @@ import AddToServerRow from "../components/AddToServerRow";
 
 const LazyActionSheet = findByProps("openLazy", "hideActionSheet");
 
-const ActionSheet = find((m) => m.default && m.default.render && m.default.render.name == "ActionSheet").default.render;
+const { default: ActionSheet } = find(m => m.default?.render?.name === "ActionSheet");
 const { BottomSheetScrollView } = findByProps("BottomSheetScrollView");
 const { FormDivider } = Forms;
 
