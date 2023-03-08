@@ -14,6 +14,8 @@ const {
 
 const LazyActionSheet = findByProps("openLazy", "hideActionSheet");
 
+const { downloadMediaAsset } = findByProps("downloadMediaAsset");
+
 export default function StealButtons({ emojiNode }) {
     const buttons = [
         {
@@ -44,13 +46,13 @@ export default function StealButtons({ emojiNode }) {
         {
             text: `Save image to ${ReactNative.Platform.select({ android: "Downloads", default: "Camera Roll" })}`,
             callback: () => {
-                ReactNative.NativeModules.MediaManager.downloadMediaAsset(emojiNode.src);
+                downloadMediaAsset(emojiNode.src, !emojiNode.src.includes(".gif") ? 0 : 1);
                 LazyActionSheet.hideActionSheet();
                 showToast(`Saved ${emojiNode.alt}'s image to ${ReactNative.Platform.select({ android: "Downloads", default: "Camera Roll" })}`, getAssetIDByName("toast_image_saved"));
             }
         }
-
     ]
+
     return <>
         {buttons.map(({ text, callback }) =>
             <Button
