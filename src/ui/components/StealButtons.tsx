@@ -33,10 +33,10 @@ export default function StealButtons({ emojiNode }) {
                 {
                     text: "Copy image to clipboard",
                     callback: () => fetchImageAsDataURL(emojiNode.src, (dataUrl) => {
- 						clipboard.setImage(dataUrl.split(',')[1]);
- 						LazyActionSheet.hideActionSheet();
- 						showToast(`Copied ${emojiNode.alt}'s image to clipboard`, getAssetIDByName("ic_message_copy"));
- 					})
+                        clipboard.setImage(dataUrl.split(',')[1]);
+                        LazyActionSheet.hideActionSheet();
+                        showToast(`Copied ${emojiNode.alt}'s image to clipboard`, getAssetIDByName("ic_message_copy"));
+                    })
                 }
             ],
             default: []
