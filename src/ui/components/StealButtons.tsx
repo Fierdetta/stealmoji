@@ -2,6 +2,7 @@ import { findByProps } from "@vendetta/metro";
 import { clipboard, ReactNative } from "@vendetta/metro/common";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
+import fetchImageAsDataURL from "../../lib/utils/fetchImageAsDataURL";
 
 const {
     default: Button,
@@ -30,7 +31,11 @@ export default function StealButtons({ emojiNode }) {
             ios: [
                 {
                     text: "Copy image to clipboard",
-                    callback: () => { }
+                    callback: () => fetchImageAsDataURL(emojiNode.src, (dataUrl) => {
+ 						clipboard.setImage(dataUrl.split(',')[1]);
+ 						LazyActionSheet.hideActionSheet();
+ 						showToast(`Copied ${emojiNode.alt}'s image to clipboard`, getAssetIDByName("ic_message_copy"));
+ 					})
                 }
             ],
             default: []
