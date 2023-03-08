@@ -7,6 +7,7 @@ const LazyActionSheet = findByProps("openLazy", "hideActionSheet");
 
 const { default: ActionSheet } = find(m => m.default?.render?.name === "ActionSheet");
 const { BottomSheetScrollView } = findByProps("BottomSheetScrollView");
+const { ActionSheetTitleHeader } = findByProps("ActionSheetTitleHeader");
 const { FormDivider } = Forms;
 
 const GuildStore = findByProps("getGuilds");
@@ -22,6 +23,7 @@ export default function AddToServerActionSheet({ emojiNode }) {
 
     return (<ActionSheet scrollable>
         <BottomSheetScrollView contentContainerStyle={{ paddingBottom: 16 }}>
+            <ActionSheetTitleHeader title={`Stealing ${emojiNode.alt}`} />
             {guilds.map(([_, guild], num) =>
                 <>
                     <AddToServerRow guild={guild} emojiNode={emojiNode} />
