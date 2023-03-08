@@ -40,7 +40,15 @@ export default function StealButtons({ emojiNode }) {
                 }
             ],
             default: []
-        })
+        }),
+        {
+            text: `Save image to ${ReactNative.Platform.select({ android: "Downloads", default: "Camera Roll" })}`,
+            callback: () => {
+                ReactNative.NativeModules.MediaManager.downloadMediaAsset(emojiNode.src);
+                LazyActionSheet.hideActionSheet();
+                showToast(`Saved ${emojiNode.alt}'s image to ${ReactNative.Platform.select({ android: "Downloads", default: "Camera Roll" })}`, getAssetIDByName("toast_image_saved"));
+            }
+        }
 
     ]
     return <>
