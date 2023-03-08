@@ -1,5 +1,7 @@
 import { findByProps } from "@vendetta/metro";
-import { ReactNative } from "@vendetta/metro/common";
+import { clipboard, ReactNative } from "@vendetta/metro/common";
+import { getAssetIDByName } from "@vendetta/ui/assets";
+import { showToast } from "@vendetta/ui/toasts";
 
 const {
     default: Button,
@@ -7,6 +9,8 @@ const {
     ButtonLooks,
     ButtonSizes,
 } = findByProps("ButtonColors", "ButtonLooks", "ButtonSizes");
+
+const LazyActionSheet = findByProps("openLazy", "hideActionSheet");
 
 export default function StealButtons({ emojiNode }) {
     const buttons = [
@@ -16,7 +20,11 @@ export default function StealButtons({ emojiNode }) {
         },
         {
             text: "Copy URL to clipboard",
-            callback: () => { }
+            callback: () => {
+                clipboard.setString(emojiNode.src);
+                LazyActionSheet.hideActionSheet();
+                showToast(`Copied ${emojiNode.alt}'s URL to clipboard`, getAssetIDByName("ic_copy_message_link"));
+            }
         },
         ...ReactNative.Platform.select({
             ios: [
