@@ -3,6 +3,7 @@ import { clipboard, ReactNative } from "@vendetta/metro/common";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
 import fetchImageAsDataURL from "../../lib/utils/fetchImageAsDataURL";
+import { showAddToServerActionSheet } from "../sheets/AddToServerActionSheet";
 
 const {
     default: Button,
@@ -17,7 +18,7 @@ export default function StealButtons({ emojiNode }) {
     const buttons = [
         {
             text: "Add to Server",
-            callback: () => { }
+            callback: () => showAddToServerActionSheet(emojiNode)
         },
         {
             text: "Copy URL to clipboard",
