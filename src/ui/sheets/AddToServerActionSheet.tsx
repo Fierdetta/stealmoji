@@ -17,7 +17,7 @@ const PermissionsStore = findByProps("can", "_dispatcher");
 export const showAddToServerActionSheet = (emojiNode) => LazyActionSheet.openLazy(new Promise(r => r({ default: AddToServerActionSheet })), "AddToServerActionSheet", { emojiNode: emojiNode });
 
 // The sheet itself
-export default function AddToServerActionSheet({ emojiNode }) {
+export default function AddToServerActionSheet({ emojiNode }: { emojiNode: EmojiNode }) {
     // Get guilds as a Array of ID and value pairs, and filter out guilds the user can't edit emojis in
     const guilds = Object.entries(GuildStore.getGuilds()).filter(([_, guild]) => PermissionsStore.can(constants.Permissions.MANAGE_GUILD_EXPRESSIONS, guild));
 

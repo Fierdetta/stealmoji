@@ -16,7 +16,7 @@ const LazyActionSheet = findByProps("openLazy", "hideActionSheet");
 
 const { downloadMediaAsset } = findByProps("downloadMediaAsset");
 
-export default function StealButtons({ emojiNode }) {
+export default function StealButtons({ emojiNode }: { emojiNode: EmojiNode }) {
     const buttons = [
         {
             text: "Add to Server",

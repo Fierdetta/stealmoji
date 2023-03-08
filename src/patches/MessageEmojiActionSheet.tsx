@@ -7,11 +7,11 @@ import StealButtons from "../ui/components/StealButtons";
 const MessageEmojiActionSheet = findByProps("GuildDetails");
 const { FormDivider } = Forms;
 
-export default () => after("default", MessageEmojiActionSheet, ([{ emojiNode }], res) => {
+export default () => after("default", MessageEmojiActionSheet, ([{ emojiNode }]: [{ emojiNode: EmojiNode }], res) => {
     if (!emojiNode.src) return;
 
     const EmojiDetails = res?.props?.children?.props?.children?.props?.children
-    const unpatchEmojiDetails = after("type", EmojiDetails, ([{ emojiNode }], res) => {
+    const unpatchEmojiDetails = after("type", EmojiDetails, ([{ emojiNode }]: [{ emojiNode: EmojiNode }], res) => {
         React.useEffect(() => () => { unpatchEmojiDetails() }, [])
 
         // Append to the Add to Favorites button if it exists

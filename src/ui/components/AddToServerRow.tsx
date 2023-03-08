@@ -12,7 +12,7 @@ const { FormRow } = Forms;
 const Emojis = findByProps("uploadEmoji");
 const LazyActionSheet = findByProps("openLazy", "hideActionSheet");
 
-export default function AddToServerRow({ guild, emojiNode }) {
+export default function AddToServerRow({ guild, emojiNode }: { guild: any, emojiNode: EmojiNode }) {
     const addToServerCallback = () => {
         showInputAlert({
             title: "Emoji name",
