@@ -58,7 +58,7 @@ export default function StealButtons({ emojiNode }) {
                 text={text}
                 size={ButtonSizes.SMALL}
                 onPress={callback}
-                style={{ marginTop: 16 }}
+                style={{ marginTop: ReactNative.Platform.select({ android: 12, default: 16 }) }}
             />
         )
         }
