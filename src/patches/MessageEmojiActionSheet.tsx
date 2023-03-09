@@ -1,12 +1,13 @@
 import { findByProps } from "@vendetta/metro";
-import { React, ReactNative as RN } from "@vendetta/metro/common";
+import { React } from "@vendetta/metro/common";
 import { after } from "@vendetta/patcher";
-import { Forms } from "@vendetta/ui/components";
+import { Forms, General } from "@vendetta/ui/components";
 import openMediaModal from "../lib/utils/openMediaModal";
 import StealButtons from "../ui/components/StealButtons";
 
 const MessageEmojiActionSheet = findByProps("GuildDetails");
 const { FormDivider } = Forms;
+const { TouchableOpacity } = General;
 
 export default () => after("default", MessageEmojiActionSheet, ([{ emojiNode }]: [{ emojiNode: EmojiNode }], res) => {
     if (!emojiNode.src) return;
@@ -19,9 +20,9 @@ export default () => after("default", MessageEmojiActionSheet, ([{ emojiNode }]:
         const emoteDetails = res.props?.children[0]?.props?.children;
         if (emoteDetails?.[0]?.type?.name === "Icon") {
             emoteDetails[0] = (
-                <RN.TouchableOpacity onPress={() => openMediaModal(emojiNode.src.replace(/\?size=\d+/, ""))}>
+                <TouchableOpacity onPress={() => openMediaModal(emojiNode.src.split("?")[0])}>
                     {emoteDetails[0]}
-                </RN.TouchableOpacity>
+                </TouchableOpacity>
             )
         }
 

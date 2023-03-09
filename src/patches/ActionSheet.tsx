@@ -1,9 +1,11 @@
 import { find } from "@vendetta/metro";
+import { React } from "@vendetta/metro/common";
 import { after, before } from "@vendetta/patcher";
-import { React, ReactNative as RN } from "@vendetta/metro/common";
+import { General } from "@vendetta/ui/components";
 import openEmojiActionSheet from "../lib/utils/openEmojiActionSheet";
 
 const { default: ActionSheet } = find(m => m.default?.render?.name === "ActionSheet");
+const { TouchableOpacity } = General;
 
 export default () => before("render", ActionSheet, ([props]) => {
     // Checks if the action sheet is for message reactions
@@ -20,7 +22,7 @@ export default () => before("render", ActionSheet, ([props]) => {
 
             // Wrap the tabs in a TouchableOpacity so we can add a long press handler
             tabsRow.props.tabs = tabs.map((tab) => (
-                <RN.TouchableOpacity
+                <TouchableOpacity
                     onPress={() => onSelect(tab.props.index)}
                     onLongPress={() => {
                         const { emoji } = tab.props.reaction;
@@ -28,7 +30,7 @@ export default () => before("render", ActionSheet, ([props]) => {
                     }}
                 >
                     {tab}
-                </RN.TouchableOpacity>
+                </TouchableOpacity>
             ));
         } catch {
             console.error("Failed to patch reaction header");
