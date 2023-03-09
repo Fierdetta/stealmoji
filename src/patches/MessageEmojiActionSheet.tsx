@@ -17,7 +17,7 @@ export default () => after("default", MessageEmojiActionSheet, ([{ emojiNode }]:
 
         // Open the media modal when the emote is pressed
         const emoteDetails = res.props?.children[0]?.props?.children;
-        if (emoteDetails && emoteDetails[0].type.name === "Icon") {
+        if (emoteDetails?.[0]?.type?.name === "Icon") {
             emoteDetails[0] = (
                 <RN.TouchableOpacity onPress={() => openMediaModal(emojiNode.src.replace(/\?size=\d+/, ""))}>
                     {emoteDetails[0]}
@@ -37,7 +37,7 @@ export default () => after("default", MessageEmojiActionSheet, ([{ emojiNode }]:
         const insertIndex = -~existingButtonIndex || -2;
 
         res.props?.children?.splice(insertIndex, 0, <>
-            <FormDivider style={{ marginLeft: 0, marginTop: 16 }} />
+            {insertIndex === -2 && <FormDivider style={{ marginLeft: 0, marginTop: 16 }} />}
             <StealButtons emojiNode={emojiNode} />
         </>);
     });
