@@ -1,4 +1,4 @@
-import { findByDisplayName, findByProps } from "@vendetta/metro";
+import { findByDisplayName, findByProps, findByStoreName } from "@vendetta/metro";
 import { showInputAlert } from "@vendetta/ui/alerts";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { Forms } from "@vendetta/ui/components";
@@ -30,6 +30,8 @@ export default function AddToServerRow({ guild, emojiNode }: { guild: any, emoji
                     }).then(() => {
                         // Let user know it was added
                         showToast(`Added ${emojiNode.alt} to ${guild.name}`, getAssetIDByName("Check"));
+                    }).catch((e) => {
+                        showToast(e.body.message, getAssetIDByName("Small"))
                     });
                 });
             },
