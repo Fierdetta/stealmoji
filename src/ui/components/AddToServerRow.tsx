@@ -45,7 +45,7 @@ export default function AddToServerRow({ guild, emojiNode }: { guild: any, emoji
         leading={
             <GuildIcon
                 guild={guild}
-                size={GuildIconSizes.LARGE}
+                size={GuildIconSizes.MEDIUM}
                 animate={false}
             />
         }
