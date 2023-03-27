@@ -1,4 +1,4 @@
-import { findByDisplayName, findByProps, findByStoreName } from "@vendetta/metro";
+import { findByProps } from "@vendetta/metro";
 import { showInputAlert } from "@vendetta/ui/alerts";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { Forms } from "@vendetta/ui/components";
@@ -6,8 +6,7 @@ import { showToast } from "@vendetta/ui/toasts";
 import fetchImageAsDataURL from "../../lib/utils/fetchImageAsDataURL";
 
 const { default: GuildIcon, GuildIconSizes } = findByProps("GuildIconSizes");
-const Icon = findByDisplayName("Icon");
-const { FormRow } = Forms;
+const { FormRow: { default: FormRow, Icon } } = Forms;
 
 const Emojis = findByProps("uploadEmoji");
 const LazyActionSheet = findByProps("openLazy", "hideActionSheet");
