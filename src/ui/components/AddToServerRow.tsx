@@ -29,7 +29,7 @@ export default function AddToServerRow({ guild, emojiNode }: { guild: any, emoji
                         roles: undefined
                     }).then(() => {
                         // Let user know it was added
-                        showToast(`Added ${emojiNode.alt} ${(emojiNode.alt!==name) ? `as ${name} ` : ""}to ${guild.name}`, getAssetIDByName("Check"));
+                        showToast(`Added ${emojiNode.alt} ${(emojiNode.alt !== name) ? `as ${name} ` : ""}to ${guild.name}`, getAssetIDByName("Check"));
                     }).catch((e) => {
                         showToast(e.body.message, getAssetIDByName("Small"))
                     });
