@@ -18,7 +18,7 @@ export default () => after("default", MessageEmojiActionSheet, ([{ emojiNode }]:
 
         // Open the media modal when the emote is pressed
         const emoteDetails = res.props?.children[0]?.props?.children;
-        if (emoteDetails?.[0]?.type?.name === "Icon") {
+        if (emoteDetails?.[0]?.type?.Sizes) {
             emoteDetails[0] = (
                 <TouchableOpacity onPress={() => openMediaModal(emojiNode.src.split("?")[0])}>
                     {emoteDetails[0]}
