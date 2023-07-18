@@ -1,20 +1,17 @@
 import { find, findByProps } from "@vendetta/metro";
-import { constants, ReactNative } from "@vendetta/metro/common";
+import { constants } from "@vendetta/metro/common";
 import { Forms } from "@vendetta/ui/components";
 import AddToServerRow from "../components/AddToServerRow";
 
 const LazyActionSheet = findByProps("openLazy", "hideActionSheet");
 
-const { default: ActionSheet } = find(m => m.default?.render?.name === "ActionSheet");
+const ActionSheet = find(m => m.render?.name === "ActionSheet");
 const { BottomSheetFlatList } = findByProps("BottomSheetScrollView");
 const { ActionSheetTitleHeader, ActionSheetCloseButton } = findByProps("ActionSheetTitleHeader");
 const { FormDivider, FormIcon } = Forms;
 
 const GuildStore = findByProps("getGuilds");
 const PermissionsStore = findByProps("can", "_dispatcher");
-
-// function to show the sheet
-export const showAddToServerActionSheet = (emojiNode) => LazyActionSheet.openLazy(new Promise(r => r({ default: AddToServerActionSheet })), "AddToServerActionSheet", { emojiNode: emojiNode });
 
 // The sheet itself
 export default function AddToServerActionSheet({ emojiNode }: { emojiNode: EmojiNode }) {
@@ -28,7 +25,7 @@ export default function AddToServerActionSheet({ emojiNode }: { emojiNode: Emoji
             <ActionSheetTitleHeader
                 title={`Stealing ${emojiNode.alt}`}
                 leading={<FormIcon
-                    style={{ marginRight: 12 }}
+                    style={{ marginRight: 12, opacity: 1 }}
                     source={{ uri: emojiNode.src }}
                     disableColor // It actually does the opposite
                 />}

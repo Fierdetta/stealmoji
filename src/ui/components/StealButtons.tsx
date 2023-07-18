@@ -3,18 +3,18 @@ import { clipboard, ReactNative } from "@vendetta/metro/common";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
 import fetchImageAsDataURL from "../../lib/utils/fetchImageAsDataURL";
-import { showAddToServerActionSheet } from "../sheets/AddToServerActionSheet";
 
 const {
     default: Button,
     ButtonColors,
-    ButtonLooks,
     ButtonSizes,
 } = findByProps("ButtonColors", "ButtonLooks", "ButtonSizes");
 
 const LazyActionSheet = findByProps("openLazy", "hideActionSheet");
 
 const { downloadMediaAsset } = findByProps("downloadMediaAsset");
+
+const showAddToServerActionSheet = (emojiNode) => LazyActionSheet.openLazy(import("../sheets/AddToServerActionSheet"), "AddToServerActionSheet", { emojiNode: emojiNode });
 
 export default function StealButtons({ emojiNode }: { emojiNode: EmojiNode }) {
     const buttons = [

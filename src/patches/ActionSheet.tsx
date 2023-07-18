@@ -4,7 +4,7 @@ import { after, before } from "@vendetta/patcher";
 import { General } from "@vendetta/ui/components";
 import openEmojiActionSheet from "../lib/utils/openEmojiActionSheet";
 
-const { default: ActionSheet } = find(m => m.default?.render?.name === "ActionSheet");
+const ActionSheet = find(m => m.render?.name === "ActionSheet");
 const { TouchableOpacity } = General;
 
 export default () => before("render", ActionSheet, ([props]) => {

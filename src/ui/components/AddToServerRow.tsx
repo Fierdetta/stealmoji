@@ -1,4 +1,5 @@
-import { findByName, findByProps } from "@vendetta/metro";
+import { findByProps, findByStoreName } from "@vendetta/metro";
+import { React } from "@vendetta/metro/common";
 import { showInputAlert } from "@vendetta/ui/alerts";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { Forms } from "@vendetta/ui/components";
@@ -6,10 +7,10 @@ import { showToast } from "@vendetta/ui/toasts";
 import fetchImageAsDataURL from "../../lib/utils/fetchImageAsDataURL";
 
 const { default: GuildIcon, GuildIconSizes } = findByProps("GuildIconSizes");
-const Icon = findByName("Icon");
-const { FormRow } = Forms;
+const { FormRow, FormIcon } = Forms;
 
 const Emojis = findByProps("uploadEmoji");
+const EmojiStore = findByStoreName("EmojiStore");
 const LazyActionSheet = findByProps("openLazy", "hideActionSheet");
 
 export default function AddToServerRow({ guild, emojiNode }: { guild: any, emojiNode: EmojiNode }) {
@@ -43,6 +44,14 @@ export default function AddToServerRow({ guild, emojiNode }: { guild: any, emoji
         LazyActionSheet.hideActionSheet();
     };
 
+    const slotsAvailable = React.useMemo(() => {
+        const maxSlots = guild.getMaxEmojiSlots();
+        const guildEmojis = EmojiStore.getGuilds()[guild.id]?.emojis ?? [];
+        const isAnimated = emojiNode.src.includes(".gif");
+
+        return guildEmojis.filter(e => e?.animated === isAnimated).length < maxSlots;
+    }, []);
+
     return (<FormRow
         leading={
             <GuildIcon
@@ -51,8 +60,10 @@ export default function AddToServerRow({ guild, emojiNode }: { guild: any, emoji
                 animate={false}
             />
         }
+        disabled={!slotsAvailable}
         label={guild.name}
-        trailing={<Icon source={getAssetIDByName("ic_add_24px")} />}
+        subLabel={!slotsAvailable ? "No slots available" : void 0}
+        trailing={<FormIcon style={{ opacity: 1 }} source={getAssetIDByName("ic_add_24px")} />}
         onPress={addToServerCallback}
     />)
 }

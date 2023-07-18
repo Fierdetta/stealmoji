@@ -52,6 +52,7 @@ try {
     const bundle = await rollup({
         input: `./${manifest.main}`,
         onwarn: () => { },
+        inlineDynamicImports: true,
         plugins,
     });
 
