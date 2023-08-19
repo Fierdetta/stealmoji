@@ -12,12 +12,14 @@ const { TouchableOpacity } = General;
 export default () => after("default", MessageEmojiActionSheet, ([{ emojiNode }]: [{ emojiNode: EmojiNode }], res) => {
     if (!emojiNode.src) return;
 
-    const EmojiDetails = res?.props?.children?.props?.children?.props?.children
+    const EmojiDetails = res?.props?.children?.props?.children?.props?.children;
+    if (!EmojiDetails) return;
+
     const unpatchEmojiDetails = after("type", EmojiDetails, ([{ emojiNode }]: [{ emojiNode: EmojiNode }], res) => {
-        React.useEffect(() => () => { unpatchEmojiDetails() }, [])
+        React.useEffect(() => () => void unpatchEmojiDetails(), [])
 
         // Open the media modal when the emote is pressed
-        const emoteDetails = res.props?.children[0]?.props?.children;
+        const emoteDetails = res?.props?.children?.[0]?.props?.children;
         if (emoteDetails?.[0]?.type?.Sizes) {
             emoteDetails[0] = (
                 <TouchableOpacity onPress={() => openMediaModal(emojiNode.src.split("?")[0])}>
@@ -27,14 +29,14 @@ export default () => after("default", MessageEmojiActionSheet, ([{ emojiNode }]:
         }
 
         // Append to the Add to Favorites button if it exists
-        const buttonView = res.props?.children[3]?.props?.children;
+        const buttonView = res?.props?.children?.[3]?.props?.children;
         if (buttonView) {
             buttonView.push(<StealButtons emojiNode={emojiNode} />);
             return;
         }
 
         // Append to Join Server / Get Nitro button if it exists, otherwise append to the bottom
-        const existingButtonIndex = res.props?.children.findIndex(x => x?.type?.name === "Button");
+        const existingButtonIndex = res.props?.children?.findIndex?.(x => x?.type?.name === "Button");
         const insertIndex = -~existingButtonIndex || -2;
 
         res.props?.children?.splice(insertIndex, 0, <>

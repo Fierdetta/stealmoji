@@ -1,5 +1,6 @@
 import { findByProps } from "@vendetta/metro";
 
+const Surrogates = findByProps("convertSurrogateToName");
 const LazyActionSheet = findByProps("hideActionSheet");
 const MessageEmojiActionSheet = findByProps("GuildDetails");
 
@@ -14,7 +15,7 @@ export default function openEmojiActionSheet({ id, name, animated }) {
                     alt: name,
                     src: `https://cdn.discordapp.com/emojis/${id}.${animated ? "gif" : "webp"}?size=128`,
                 } : {
-                    content: name,
+                    content: Surrogates.convertSurrogateToName(name),
                     surrogate: name,
                 }
             }
