@@ -29,7 +29,7 @@ export default () => {
             MessageEmojiActionSheet = module;
             patches.push(after("default", module, (_, res) => {
                 // res.type is the same as the no-longer-existing findByProps("GuildDetails").default
-                patches.push(patchSheet("type", res));
+                patches.push(patchSheet("type", res, true));
             }));
         });
     });
@@ -75,7 +75,7 @@ function patchSheet(funcName: string, sheetModule: any, once = false) {
                 <StealButtons emojiNode={emojiNode} />
             </>);
         });
-    }, once);
+    });
 
     return unpatch;
 }
