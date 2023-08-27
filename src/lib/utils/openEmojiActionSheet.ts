@@ -1,8 +1,8 @@
 import { findByProps } from "@vendetta/metro";
+import { MessageEmojiActionSheet } from "../../patches/MessageEmojiActionSheet";
 
 const Surrogates = findByProps("convertSurrogateToName");
 const LazyActionSheet = findByProps("hideActionSheet");
-const MessageEmojiActionSheet = findByProps("GuildDetails");
 
 export default function openEmojiActionSheet({ id, name, animated }) {
     try {
