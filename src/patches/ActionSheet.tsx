@@ -1,15 +1,14 @@
-import { find } from "@vendetta/metro";
 import { React } from "@vendetta/metro/common";
 import { after, before } from "@vendetta/patcher";
 import { General } from "@vendetta/ui/components";
 import openEmojiActionSheet from "../lib/utils/openEmojiActionSheet";
 import { MessageEmojiActionSheet } from "./MessageEmojiActionSheet";
+import { ActionSheet } from "../modules";
 
-const ActionSheet = find(m => m.render?.name === "ActionSheet");
 const { TouchableOpacity } = General;
 
 /*  
-    This checks if emojiActionSheet is available (starting Android 194204, 
+    This checks if MessageEmojiActionSheet is available (starting Android 194204, 
     it only exists once the user open the emoji action sheet at least once)
 */
 export default () => before("render", ActionSheet, ([props]) => {

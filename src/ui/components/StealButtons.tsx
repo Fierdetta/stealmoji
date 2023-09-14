@@ -1,20 +1,12 @@
-import { findByProps } from "@vendetta/metro";
 import { clipboard, ReactNative } from "@vendetta/metro/common";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { showToast } from "@vendetta/ui/toasts";
 import fetchImageAsDataURL from "../../lib/utils/fetchImageAsDataURL";
+import { downloadMediaAsset, LazyActionSheet } from "../../modules";
+import { showAddToServerActionSheet } from "../sheets/AddToServerActionSheet";
 
-const {
-    default: Button,
-    ButtonColors,
-    ButtonSizes,
-} = findByProps("ButtonColors", "ButtonLooks", "ButtonSizes");
-
-const LazyActionSheet = findByProps("openLazy", "hideActionSheet");
-
-const { downloadMediaAsset } = findByProps("downloadMediaAsset");
-
-const showAddToServerActionSheet = (emojiNode) => LazyActionSheet.openLazy(import("../sheets/AddToServerActionSheet"), "AddToServerActionSheet", { emojiNode: emojiNode });
+// @ts-ignore
+import { Button } from "@vendetta/ui/components";
 
 export default function StealButtons({ emojiNode }: { emojiNode: EmojiNode }) {
     const buttons = [
@@ -56,13 +48,12 @@ export default function StealButtons({ emojiNode }: { emojiNode: EmojiNode }) {
     return <>
         {buttons.map(({ text, callback }) =>
             <Button
-                color={ButtonColors.BRAND}
+                color={Button.Colors.BRAND}
                 text={text}
-                size={ButtonSizes.SMALL}
+                size={Button.Sizes.SMALL}
                 onPress={callback}
                 style={{ marginTop: ReactNative.Platform.select({ android: 12, default: 16 }) }}
             />
-        )
-        }
+        )}
     </>
 };

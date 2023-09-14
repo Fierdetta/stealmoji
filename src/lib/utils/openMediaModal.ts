@@ -1,8 +1,5 @@
-import { findByProps } from "@vendetta/metro";
 import { ReactNative } from "@vendetta/metro/common";
-
-const MediaModal = findByProps("openMediaModal");
-const LazyActionSheet = findByProps("hideActionSheet");
+import { LazyActionSheet, MediaModalUtils } from "../../modules";
 
 function getSizeAsync(src: string): Promise<[width: number, height: number]> {
     return new Promise((resolve, reject) => {
@@ -17,7 +14,7 @@ export default async function openMediaModal(src: string) {
     const { width: screenWidth, height: screenHeight } = ReactNative.Dimensions.get("window");
 
     LazyActionSheet.hideActionSheet();
-    MediaModal.openMediaModal({
+    MediaModalUtils.openMediaModal({
         initialSources: [{
             uri: src,
             sourceURI: src,

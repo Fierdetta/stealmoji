@@ -1,11 +1,11 @@
-import { findByProps } from "@vendetta/metro";
 import { React } from "@vendetta/metro/common";
 import { after, before } from "@vendetta/patcher";
-import { Forms, General } from "@vendetta/ui/components";
+import { ErrorBoundary, Forms, General } from "@vendetta/ui/components";
 import openMediaModal from "../lib/utils/openMediaModal";
 import StealButtons from "../ui/components/StealButtons";
+import { findByProps } from "@vendetta/metro";
+import { LazyActionSheet } from "../modules";
 
-const LazyActionSheet = findByProps("hideActionSheet");
 const { FormDivider } = Forms;
 const { TouchableOpacity } = General;
 
@@ -70,10 +70,10 @@ function patchSheet(funcName: string, sheetModule: any, once = false) {
             const existingButtonIndex = res.props?.children?.findIndex?.(x => x?.type?.name === "Button");
             const insertIndex = -~existingButtonIndex || -2;
     
-            res.props?.children?.splice(insertIndex, 0, <>
+            res.props?.children?.splice(insertIndex, 0, <ErrorBoundary>
                 <FormDivider style={{ marginLeft: 0, marginTop: 16 }} />
                 <StealButtons emojiNode={emojiNode} />
-            </>);
+            </ErrorBoundary>);
         });
     });
 

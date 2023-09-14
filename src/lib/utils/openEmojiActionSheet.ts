@@ -1,8 +1,5 @@
-import { findByProps } from "@vendetta/metro";
+import { LazyActionSheet, Surrogates } from "../../modules";
 import { MessageEmojiActionSheet } from "../../patches/MessageEmojiActionSheet";
-
-const Surrogates = findByProps("convertSurrogateToName");
-const LazyActionSheet = findByProps("hideActionSheet");
 
 export default function openEmojiActionSheet({ id, name, animated }) {
     try {

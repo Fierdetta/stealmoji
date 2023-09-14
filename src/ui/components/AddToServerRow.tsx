@@ -1,17 +1,12 @@
-import { findByProps, findByStoreName } from "@vendetta/metro";
 import { React } from "@vendetta/metro/common";
 import { showInputAlert } from "@vendetta/ui/alerts";
 import { getAssetIDByName } from "@vendetta/ui/assets";
 import { Forms } from "@vendetta/ui/components";
 import { showToast } from "@vendetta/ui/toasts";
 import fetchImageAsDataURL from "../../lib/utils/fetchImageAsDataURL";
+import { EmojiStore, Emojis, GuildIcon, GuildIconSizes, LazyActionSheet } from "../../modules";
 
-const { default: GuildIcon, GuildIconSizes } = findByProps("GuildIconSizes");
 const { FormRow, FormIcon } = Forms;
-
-const Emojis = findByProps("uploadEmoji");
-const EmojiStore = findByStoreName("EmojiStore");
-const LazyActionSheet = findByProps("openLazy", "hideActionSheet");
 
 export default function AddToServerRow({ guild, emojiNode }: { guild: any, emojiNode: EmojiNode }) {
     const addToServerCallback = () => {

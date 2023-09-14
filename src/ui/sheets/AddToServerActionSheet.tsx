@@ -1,27 +1,43 @@
-import { find, findByProps } from "@vendetta/metro";
 import { constants } from "@vendetta/metro/common";
-import { Forms } from "@vendetta/ui/components";
+import { ErrorBoundary, Forms } from "@vendetta/ui/components";
 import AddToServerRow from "../components/AddToServerRow";
 
-const LazyActionSheet = findByProps("openLazy", "hideActionSheet");
+import {
+    ActionSheet,
+    ActionSheetCloseButton,
+    ActionSheetTitleHeader,
+    BottomSheetFlatList,
+    GuildStore,
+    LazyActionSheet,
+    PermissionsStore
+} from "../../modules";
 
-const ActionSheet = find(m => m.render?.name === "ActionSheet");
-const { BottomSheetFlatList } = findByProps("BottomSheetScrollView");
-const { ActionSheetTitleHeader, ActionSheetCloseButton } = findByProps("ActionSheetTitleHeader");
 const { FormDivider, FormIcon } = Forms;
 
-const GuildStore = findByProps("getGuilds");
-const PermissionsStore = findByProps("can", "_dispatcher");
+export function showAddToServerActionSheet(emojiNode: EmojiNode) {
+    const element = (
+        <ActionSheet scrollable>
+            <ErrorBoundary>
+                <AddToServer emojiNode={emojiNode} />
+            </ErrorBoundary>
+        </ActionSheet>
+    );
+
+    LazyActionSheet.openLazy(
+        Promise.resolve({ default: () => element }),
+        "AddToServerActionSheet"
+    );
+}
 
 // The sheet itself
-export default function AddToServerActionSheet({ emojiNode }: { emojiNode: EmojiNode }) {
+function AddToServer({ emojiNode }: { emojiNode: EmojiNode }) {
     // Get guilds as a Array of ID and value pairs, and filter out guilds the user can't edit emojis in
     const guilds = Object.values(GuildStore.getGuilds()).filter((guild) =>
         PermissionsStore.can(constants.Permissions.MANAGE_GUILD_EXPRESSIONS, guild)
     );
 
     return (
-        <ActionSheet scrollable>
+        <>
             <ActionSheetTitleHeader
                 title={`Stealing ${emojiNode.alt}`}
                 leading={<FormIcon
@@ -46,6 +62,6 @@ export default function AddToServerActionSheet({ emojiNode }: { emojiNode: Emoji
                 ItemSeparatorComponent={FormDivider}
                 keyExtractor={x => x.id}
             />
-        </ActionSheet>
-    )
+        </>
+    );
 };
