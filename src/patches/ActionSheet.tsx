@@ -2,18 +2,13 @@ import { React } from "@vendetta/metro/common";
 import { after, before } from "@vendetta/patcher";
 import { General } from "@vendetta/ui/components";
 import openEmojiActionSheet from "../lib/utils/openEmojiActionSheet";
-import { MessageEmojiActionSheet } from "./MessageEmojiActionSheet";
 import { ActionSheet } from "../modules";
 
 const { TouchableOpacity } = General;
 
-/*  
-    This checks if MessageEmojiActionSheet is available (starting Android 194204, 
-    it only exists once the user open the emoji action sheet at least once)
-*/
 export default () => before("render", ActionSheet, ([props]) => {
     // Checks if the action sheet is for message reactions
-    if (!MessageEmojiActionSheet || !props?.header?.props?.reactions || props.children.type?.name !== "FastList") return;
+    if (!props?.header?.props?.reactions || props.children.type?.name !== "FastList") return;
 
     // Patch the header
     const unpatchReactionsHeader = after("type", props.header, (_, res) => {

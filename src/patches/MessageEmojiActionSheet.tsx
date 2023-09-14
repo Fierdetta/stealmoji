@@ -12,10 +12,7 @@ const { TouchableOpacity } = General;
 // Android 194204 - MessageEmojiActionSheet can't be found from findByProps("GuildDetails") anymore
 // We can either patch LazyActionSheet.openLazy or ActionSheet component(?)
 // In this case, patching openLazy is better to keep compatibility with the old approach
-// Due to this action sheet can be only found lazily, this module can only be found/catched
-// once the user opened the sheet at least once.
-// This leads to some of Stealmoji features to not work.
-export let MessageEmojiActionSheet = findByProps("GuildDetails");
+const MessageEmojiActionSheet = findByProps("GuildDetails");
 
 export default () => {
     if (MessageEmojiActionSheet) return patchSheet("default", MessageEmojiActionSheet);
@@ -26,7 +23,6 @@ export default () => {
         unpatchLazy();
 
         lazySheet.then(module => {
-            MessageEmojiActionSheet = module;
             patches.push(after("default", module, (_, res) => {
                 // res.type is the same as the no-longer-existing findByProps("GuildDetails").default
                 patches.push(patchSheet("type", res, true));
